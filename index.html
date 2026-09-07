@@ -94,7 +94,14 @@
   .meta{margin-top:26px; font-family:var(--font-mono); font-size:12px; color:var(--faint); letter-spacing:0.02em; display:flex; flex-wrap:wrap; gap:6px 18px;}
 
   .diagram{position:relative; background:linear-gradient(160deg,var(--surface),var(--surface-2)); border:1px solid var(--line-strong); border-radius:var(--radius); padding:14px; box-shadow:0 24px 60px -30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.04);}
-  .diagram canvas{display:block; width:100%; height:300px; border-radius:10px;}
+  .tiers-cap{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--faint); margin:4px 4px 10px;}
+  .tiers{display:flex; flex-direction:column;}
+  .tier{display:flex; align-items:center; gap:16px; padding:15px 6px;}
+  .tier + .tier{border-top:1px dashed var(--line);}
+  .tdot{flex:0 0 auto; width:11px; height:11px; border-radius:50%; background:var(--accent); box-shadow:0 0 10px var(--glow);}
+  .tdot.g{background:var(--accent-2); box-shadow:0 0 10px var(--accent-2);}
+  .tname{font-family:var(--font-display); font-weight:700; font-size:1.02rem; color:var(--ink);}
+  .ttech{font-family:'JetBrains Mono',ui-monospace,monospace; font-size:11.5px; color:var(--muted); margin-top:3px;}
   .diagram .cap{font-family:var(--font-mono); font-size:11px; letter-spacing:0.1em; text-transform:uppercase; color:var(--faint); margin-bottom:12px; display:flex; justify-content:space-between;}
   .diagram .cap b{color:var(--accent); font-weight:600;}
   .node rect{fill:var(--surface-2); stroke:var(--line-strong);}
@@ -204,8 +211,13 @@
         </div>
       </div>
 
-      <div class="diagram reveal" style="--i:3" aria-hidden="true">
-        <canvas id="heroCanvas"></canvas>
+      <div class="diagram reveal" style="--i:3">
+        <div class="tiers-cap">The stack, end to end</div>
+        <div class="tiers">
+          <div class="tier"><span class="tdot"></span><div><div class="tname">Frontend &amp; mobile</div><div class="ttech">Flutter · Next.js · React · React Native</div></div></div>
+          <div class="tier"><span class="tdot g"></span><div><div class="tname">Backend</div><div class="ttech">Spring Boot · FastAPI · ASP.NET · Node.js</div></div></div>
+          <div class="tier"><span class="tdot"></span><div><div class="tname">Data &amp; infra</div><div class="ttech">PostgreSQL · Redis · Docker</div></div></div>
+        </div>
       </div>
     </div>
   </section>
