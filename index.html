@@ -211,6 +211,11 @@
   html.js .skgrid > .ru:nth-child(3){transition-delay:.14s}
   html.js .skgrid > .ru:nth-child(4){transition-delay:.21s}
   @media (prefers-reduced-motion:reduce){ html.js .ru{opacity:1 !important; transform:none !important;} }
+
+  .twcur{color:var(--accent-2); font-weight:400; margin-left:3px;}
+  @media (prefers-reduced-motion:no-preference){ .twcur{animation:blink 1s steps(1) infinite;} }
+  @keyframes blink{50%{opacity:0;}}
+  .menu a.active{color:var(--accent); background:var(--surface-2);}
 </style>
 </head>
 <body>
@@ -240,16 +245,16 @@
       <span class="badge reveal"><span class="live"></span> Available for opportunities</span>
       <p class="hi reveal">Hi, I'm</p>
       <h1 class="reveal">Harindi Balasuriya</h1>
-      <div class="role reveal">Full-Stack Software Engineer</div>
+      <div class="role reveal"><span id="tw">Full-Stack Software Engineer</span><span class="twcur" aria-hidden="true">|</span></div>
       <p class="lede reveal">I build reliable, multi-service products end to end with <b>Flutter</b>, <b>Spring Boot</b>, <b>FastAPI</b> and <b>ASP.NET</b>. First Class graduate and top of the batch, focused on clean architecture, tests and CI, and integrations that fail soft.</p>
       <div class="cta reveal">
         <a class="btn primary" href="#projects">View my work &rarr;</a>
         <a class="btn" href="#contact">Get in touch</a>
       </div>
       <div class="stats reveal">
-        <div class="stat"><div class="n">10<sup>+</sup></div><div class="l">Projects</div></div>
-        <div class="stat"><div class="n">2<sup>+</sup></div><div class="l">Years experience</div></div>
-        <div class="stat"><div class="n">25<sup>+</sup></div><div class="l">Technologies</div></div>
+        <div class="stat"><div class="n"><span data-count="10">10</span><sup>+</sup></div><div class="l">Projects</div></div>
+        <div class="stat"><div class="n"><span data-count="2">2</span><sup>+</sup></div><div class="l">Years experience</div></div>
+        <div class="stat"><div class="n"><span data-count="25">25</span><sup>+</sup></div><div class="l">Technologies</div></div>
       </div>
     </div>
   </section>
@@ -453,6 +458,34 @@
     var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in'); io.unobserve(x.target);}});},{threshold:0.12, rootMargin:'0px 0px -8% 0px'});
     ru.forEach(function(el){io.observe(el);});
   } else { for(var i=0;i<ru.length;i++) ru[i].classList.add('in'); }
+
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+
+  function countUp(el){var to=+el.getAttribute('data-count'),dur=1200,t0=null;el.textContent='0';function tick(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);el.textContent=Math.round(p*to);if(p<1)requestAnimationFrame(tick);}requestAnimationFrame(tick);}
+  var statsWrap=document.querySelector('.stats');
+  if(statsWrap && 'IntersectionObserver' in window && !reduce){
+    var so=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){var ns=x.target.querySelectorAll('[data-count]');for(var i=0;i<ns.length;i++)countUp(ns[i]);so.unobserve(x.target);}});},{threshold:0.4});
+    so.observe(statsWrap);
+  }
+
+  var tw=document.getElementById('tw');
+  if(tw && !reduce){
+    var phrases=["Full-Stack Software Engineer","Flutter & Spring Boot Developer","Backend & Mobile Engineer","Applied ML Builder"];
+    var pi=0,ci=phrases[0].length,del=true;
+    function twtick(){
+      if(del){ ci--; if(ci<=0){ del=false; pi=(pi+1)%phrases.length; ci=0; tw.textContent=""; setTimeout(twtick,170); return; } }
+      else { ci++; if(ci>=phrases[pi].length){ ci=phrases[pi].length; del=true; tw.textContent=phrases[pi]; setTimeout(twtick,1700); return; } }
+      tw.textContent=phrases[pi].substring(0,ci); setTimeout(twtick, del?45:80);
+    }
+    setTimeout(twtick,1900);
+  }
+
+  var links=document.querySelectorAll('.menu a[href^="#"]');
+  var secs=document.querySelectorAll('main section[id]');
+  if('IntersectionObserver' in window && secs.length){
+    var spy=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){var id=x.target.id;for(var i=0;i<links.length;i++){links[i].classList.toggle('active',links[i].getAttribute('href')==='#'+id);}}});},{rootMargin:'-45% 0px -50% 0px',threshold:0});
+    for(var si=0;si<secs.length;si++)spy.observe(secs[si]);
+  }
 })();
 </script>
 </body>
