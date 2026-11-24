@@ -51,6 +51,8 @@ button{cursor:pointer}h1,h2,h3,p{margin:0}img,svg{max-width:100%}
 .hero-sticker{position:absolute;right:7%;top:28%;width:156px;aspect-ratio:1;border:1px solid var(--stroke2);border-radius:50%;display:grid;place-items:center;transform:rotate(14deg);opacity:.92;animation:sticker 20s linear infinite;pointer-events:none}.hero-sticker::before{content:"";position:absolute;inset:15px;border:1px dashed var(--stroke2);border-radius:50%}.hero-sticker span{font:500 9px/1.7 var(--mono);letter-spacing:.18em;text-align:center;color:var(--accent)}@keyframes sticker{to{transform:rotate(374deg)}}
 /* Section grammar */
 .section{position:relative;padding:134px 0;border-bottom:1px solid var(--stroke)}
+/* Keep the Work heading visible directly below the fixed navigation on anchor jumps. */
+#work{padding-top:30px}
 .kicker{display:flex;align-items:center;gap:12px;font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}.kicker::before{content:"";width:24px;height:1px;background:var(--accent)}
 .section-top{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin:18px 0 52px}.section-title{font:800 clamp(47px,6.7vw,98px)/.99 var(--display);letter-spacing:-.075em;max-width:1000px}.section-title em{font-style:normal;color:var(--accent)}.section-note{font:400 12px/1.9 var(--mono);max-width:260px;color:var(--dim)}
 .reveal{opacity:1;transform:none}html.js:not([data-motion="off"]) .reveal:not(.visible){opacity:0;transform:translateY(38px)}.reveal{transition:opacity .85s cubic-bezier(.2,.8,.2,1),transform .85s cubic-bezier(.2,.8,.2,1)}
